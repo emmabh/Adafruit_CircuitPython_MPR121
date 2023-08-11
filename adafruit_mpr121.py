@@ -246,9 +246,9 @@ class MPR121:
 
         lsl = usl * 0.65
         target = usl * 0.9
-        self._write_register_byte(MPR121_UPLIMIT, usl) # UP LIMIT
-        self._write_register_byte(MPR121_LOWLIMIT, lsl) # LOW LIMIT
-        self._write_register_byte(MPR121_TARGETLIMIT, target) # target
+        self._write_register_byte(MPR121_UPLIMIT, int(usl)) # UP LIMIT
+        self._write_register_byte(MPR121_LOWLIMIT, int(lsl)) # LOW LIMIT
+        self._write_register_byte(MPR121_TARGETLIMIT, int(target)) # target
 
         # Enable all electrodes.
         self._write_register_byte(
