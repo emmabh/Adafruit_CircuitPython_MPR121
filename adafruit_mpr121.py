@@ -72,8 +72,8 @@ MPR121_CONFIG2 = const(0x5D)
 # MPR121_CHARGECURR_0    = const(0x5F)
 # MPR121_CHARGETIME_1    = const(0x6C)
 MPR121_ECR = const(0x5E)
-# MPR121_AUTOCONFIG0     = const(0x7B)
-# MPR121_AUTOCONFIG1     = const(0x7C)
+MPR121_AUTOCONFIG0     = const(0x7B)
+MPR121_AUTOCONFIG1     = const(0x7C)
 MPR121_UPLIMIT         = const(0x7D)
 MPR121_LOWLIMIT        = const(0x7E)
 MPR121_TARGETLIMIT     = const(0x7F)
@@ -244,11 +244,30 @@ class MPR121:
         self._write_register_byte(MPR121_CONFIG1, 0x10)  # default, 16uA charge current
         self._write_register_byte(MPR121_CONFIG2, 0x20)  # 0.5uS encoding, 1ms period
 
+        RETRY = 0
+        BVA = 2
+        ARE = True
+        ACE = True
+        
+        SCTS = False
+        OORIE = False
+        ARFIE = False
+        ACFIE = False
+
         lsl = usl * 0.65
         target = usl * 0.9
+
+
+        self._read_register_bytes(0x5c, self._buffer)
+        FFI = self._buffer[0] >> 6 & 0b00000011
+        RETRY_2 = RETRY & 0b00000011
+        BVA_2 = BVA & 0b00000011
+
         self._write_register_byte(MPR121_UPLIMIT, int(usl)) # UP LIMIT
         self._write_register_byte(MPR121_LOWLIMIT, int(lsl)) # LOW LIMIT
         self._write_register_byte(MPR121_TARGETLIMIT, int(target)) # target
+        self._write_register_byte(MPR121_AUTOCONFIG0, (FFI << 6) | (RETRY_2 << 4) | (BVA_2 << 2) | (int(ARE) << 1) | int(ACE))
+        self._write_register_byte(MPR121_AUTOCONFIG1, (int(SCTS) << 7) | (int(OORIE) << 2) | int(ARFIE) << 1 | int(ACFIE))
 
         # Enable all electrodes.
         self._write_register_byte(
