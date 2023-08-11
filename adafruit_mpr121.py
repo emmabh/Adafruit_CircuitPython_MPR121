@@ -74,9 +74,9 @@ MPR121_CONFIG2 = const(0x5D)
 MPR121_ECR = const(0x5E)
 # MPR121_AUTOCONFIG0     = const(0x7B)
 # MPR121_AUTOCONFIG1     = const(0x7C)
-# MPR121_UPLIMIT         = const(0x7D)
-# MPR121_LOWLIMIT        = const(0x7E)
-# MPR121_TARGETLIMIT     = const(0x7F)
+MPR121_UPLIMIT         = const(0x7D)
+MPR121_LOWLIMIT        = const(0x7E)
+MPR121_TARGETLIMIT     = const(0x7F)
 # MPR121_GPIODIR         = const(0x76)
 # MPR121_GPIOEN          = const(0x77)
 # MPR121_GPIOSET         = const(0x78)
@@ -200,7 +200,7 @@ class MPR121:
         with self._i2c:
             self._i2c.write_then_readinto(bytes([register]), result, in_end=length)
 
-    def reset(self) -> None:
+    def reset(self, usl=156) -> None:
         """Reset the MPR121 into a default state.
 
         All configurations and states previously set are lost.
@@ -243,6 +243,12 @@ class MPR121:
         self._write_register_byte(MPR121_DEBOUNCE, 0)
         self._write_register_byte(MPR121_CONFIG1, 0x10)  # default, 16uA charge current
         self._write_register_byte(MPR121_CONFIG2, 0x20)  # 0.5uS encoding, 1ms period
+
+        lsl = usl * 0.65
+        target = usl * 0.9
+        self._write_register_byte(MPR121_UPLIMIT, usl.to_bytes()) # UP LIMIT
+        self._write_register_byte(MPR121_LOWLIMIT, lsl.to_bytes()) # LOW LIMIT
+        self._write_register_byte(MPR121_TARGETLIMIT, target.to_bytes()) # target
 
         # Enable all electrodes.
         self._write_register_byte(
