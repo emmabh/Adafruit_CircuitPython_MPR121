@@ -1,3 +1,6 @@
+
+TLDR: I modded this so u can change the upside voltage
+
 Introduction
 ============
 
