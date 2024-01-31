@@ -241,8 +241,8 @@ class MPR121:
 
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0)
-        self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 16uA charge current
-        self._write_register_byte(MPR121_CONFIG2, 0x20)  # 0.5uS encoding, 1ms period
+        self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
+        self._write_register_byte(MPR121_CONFIG2, 0x58)  # 1uS encoding, 1ms period, 18 samples
 
         # Enable all electrodes.
         self._write_register_byte(
