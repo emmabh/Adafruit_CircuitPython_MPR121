@@ -234,7 +234,7 @@ class MPR121:
         self._write_register_byte(MPR121_MHDF, 0x01)
         self._write_register_byte(MPR121_NHDF, 0x05)
         self._write_register_byte(MPR121_NCLF, 0x01)
-        self._write_register_byte(MPR121_FDLF, 0x04)
+        self._write_register_byte(MPR121_FDLF, 0xFF)
         self._write_register_byte(MPR121_NHDT, 0x00)
         self._write_register_byte(MPR121_NCLT, 0x00)
         self._write_register_byte(MPR121_FDLT, 0x00)
