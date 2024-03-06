@@ -237,7 +237,7 @@ class MPR121:
         self._write_register_byte(MPR121_FDLF, 0xFF)
         self._write_register_byte(MPR121_NHDT, 0x00)
         self._write_register_byte(MPR121_NCLT, 0x00)
-        self._write_register_byte(MPR121_FDLT, 0x00)
+        self._write_register_byte(MPR121_FDLT, 0x04)
 
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0)
