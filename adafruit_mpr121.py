@@ -243,15 +243,15 @@ class MPR121:
         self._write_register_byte(MPR121_DEBOUNCE, 0) # debouncing
         #self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
         self._write_register_byte(MPR121_CONFIG1, 0x7F)  # 10 samples, 63uA charge current
-        self._write_register_byte(MPR121_CONFIG2, 0x28)  # 0.5uS period, 6 samples, 1ms period between sample
+        self._write_register_byte(MPR121_CONFIG2, 0xE8)  # 32uS period, 6 samples, 1ms period between sample
 
-        # Auto Config - 10 Samples, no retry, auto baseline, en, en
-        self._write_register_byte(MPR121_AUTOCONFIG0, 0x4F)
+        # # Auto Config - 10 Samples, no retry, auto baseline, en, en
+        # self._write_register_byte(MPR121_AUTOCONFIG0, 0x4F)
         
-        # charge to 70% of Vdd , high sensitivity 
-        self._write_register_byte(MPR121_UPLIMIT, 0xC4)
-        self._write_register_byte(MPR121_LOWLIMIT, 0x7F)
-        self._write_register_byte(MPR121_TARGETLIMIT, 0xB0)
+        # # charge to 70% of Vdd , high sensitivity 
+        # self._write_register_byte(MPR121_UPLIMIT, 0xC4)
+        # self._write_register_byte(MPR121_LOWLIMIT, 0x7F)
+        # self._write_register_byte(MPR121_TARGETLIMIT, 0xB0)
                                        
         # Enable all electrodes.
         self._write_register_byte(
