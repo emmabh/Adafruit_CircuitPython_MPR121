@@ -242,7 +242,7 @@ class MPR121:
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0) # debouncing
         #self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
-        self._write_register_byte(MPR121_CONFIG1, 0x7F)  # 10 samples, 63uA charge current
+        self._write_register_byte(MPR121_CONFIG1, 0x72)  # 10 samples, 53uA charge current
         self._write_register_byte(MPR121_CONFIG2, 0x48)  # 1uS period, 6 samples, 1ms period between sample
 
         # # Auto Config - 10 Samples, no retry, auto baseline, en, en
