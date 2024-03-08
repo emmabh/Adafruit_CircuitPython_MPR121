@@ -230,20 +230,22 @@ class MPR121:
         self._write_register_byte(MPR121_MHDR, 0x01)
         self._write_register_byte(MPR121_NHDR, 0x01)
         self._write_register_byte(MPR121_NCLR, 0x0E)
-        self._write_register_byte(MPR121_FDLR, 0x01)
+        self._write_register_byte(MPR121_FDLR, 0x00)
         self._write_register_byte(MPR121_MHDF, 0x01)
         self._write_register_byte(MPR121_NHDF, 0x05)
         self._write_register_byte(MPR121_NCLF, 0x01)
         self._write_register_byte(MPR121_FDLF, 0xFF)
         self._write_register_byte(MPR121_NHDT, 0x00)
         self._write_register_byte(MPR121_NCLT, 0x00)
-        self._write_register_byte(MPR121_FDLT, 0x04)
+        self._write_register_byte(MPR121_FDLT, 0x00)
 
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0) # debouncing
         #self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
-        self._write_register_byte(MPR121_CONFIG1, 0x3F)  # 6 samples, 63uA charge current
-        self._write_register_byte(MPR121_CONFIG2, 0x24)  # 0.5uS charge time, 4 samples, 16ms period between sample
+        # self._write_register_byte(MPR121_CONFIG1, 0xFF)  # 34 samples, 63uA charge current
+        # self._write_register_byte(MPR121_CONFIG2, 0x39)  # 0.5uS period, 18 samples, 2ms period between sample
+        self._write_register_byte(MPR121_CONFIG1, 0x90)  # 18 samples, 16uA charge current
+        self._write_register_byte(MPR121_CONFIG2, 0x33)  # 0.5uS period, 10 samples, 8ms period between samples
 
         # Enable all electrodes.
         self._write_register_byte(
