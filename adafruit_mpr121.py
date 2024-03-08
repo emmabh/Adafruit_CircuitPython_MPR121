@@ -242,8 +242,8 @@ class MPR121:
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0) # debouncing
         #self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
-        self._write_register_byte(MPR121_CONFIG1, 0xFF)  # 34 samples, 63uA charge current
-        self._write_register_byte(MPR121_CONFIG2, 0x39)  # 0.5uS period, 18 samples, 2ms period between sample
+        self._write_register_byte(MPR121_CONFIG1, 0x7F)  # 10 samples, 63uA charge current
+        self._write_register_byte(MPR121_CONFIG2, 0x28)  # 0.5uS period, 6 samples, 1ms period between sample
 
         # Enable all electrodes.
         self._write_register_byte(
