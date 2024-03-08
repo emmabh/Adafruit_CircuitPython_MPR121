@@ -72,11 +72,11 @@ MPR121_CONFIG2 = const(0x5D)
 # MPR121_CHARGECURR_0    = const(0x5F)
 # MPR121_CHARGETIME_1    = const(0x6C)
 MPR121_ECR = const(0x5E)
-# MPR121_AUTOCONFIG0     = const(0x7B)
-# MPR121_AUTOCONFIG1     = const(0x7C)
-# MPR121_UPLIMIT         = const(0x7D)
-# MPR121_LOWLIMIT        = const(0x7E)
-# MPR121_TARGETLIMIT     = const(0x7F)
+MPR121_AUTOCONFIG0     = const(0x7B)
+MPR121_AUTOCONFIG1     = const(0x7C)
+MPR121_UPLIMIT         = const(0x7D)
+MPR121_LOWLIMIT        = const(0x7E)
+MPR121_TARGETLIMIT     = const(0x7F)
 # MPR121_GPIODIR         = const(0x76)
 # MPR121_GPIOEN          = const(0x77)
 # MPR121_GPIOSET         = const(0x78)
@@ -242,9 +242,17 @@ class MPR121:
         # Set other configuration registers.
         self._write_register_byte(MPR121_DEBOUNCE, 0) # debouncing
         #self._write_register_byte(MPR121_CONFIG1, 0x20)  # default, 32xuA charge current
-        self._write_register_byte(MPR121_CONFIG1, 0x3F)  # 6 samples, 63uA charge current
-        self._write_register_byte(MPR121_CONFIG2, 0x24)  # 0.5uS period, 4 samples, 16ms period between sample
+        self._write_register_byte(MPR121_CONFIG1, 0x7F)  # 10 samples, 63uA charge current
+        self._write_register_byte(MPR121_CONFIG2, 0x28)  # 0.5uS period, 6 samples, 1ms period between sample
 
+        # Auto Config - 10 Samples, no retry, auto baseline, en, en
+        self._write_register_byte(MPR121_AUTOCONFIG0, 0x4F)
+        
+        # charge to 70% of Vdd , high sensitivity 
+        self._write_register_byte(MPR121_UPLIMIT, 0xC4)
+        self._write_register_byte(MPR121_LOWLIMIT, 0x7F)
+        self._write_register_byte(MPR121_TARGETLIMIT, 0xB0)
+                                       
         # Enable all electrodes.
         self._write_register_byte(
             MPR121_ECR, 0x8F
